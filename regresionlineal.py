@@ -21,16 +21,19 @@ def linear_coeffs(x: Sequence[float], y: Sequence[float]) -> Tuple[float, float]
 def predict(a: float, b: float, x: Sequence[float]) -> np.ndarray:
     return a + b * np.asarray(x, dtype=float)
 
-def mse(y_true: Sequence[float], y_pred: Sequence[float]) -> float:
-    y_true = np.asarray(y_true, dtype=float); y_pred = np.asarray(y_pred, dtype=float)
-    return float(np.mean((y_true - y_pred) ** 2))
+def mse(actual, predicted):
+    sum_squared_error = 0.0
+    for i in range(len(actual)):
+        error = actual[i] - predicted[i]
+        sum_squared_error += (error ** 2)
+    return sum_squared_error / float(len(actual))
 
 # --------- Ajuste, ECM y pronósticos ---------
 a, b = linear_coeffs(x, y)
 y_hat = predict(a, b, x)
 ecm_rl = mse(y, y_hat)
 
-print(f"a (intercepto) = {a:.6f}")
+print(f"a (intercepción) = {a:.6f}")
 print(f"b (pendiente)  = {b:.6f}")
 print(f"ECM (Regresión Lineal) = {ecm_rl:.3f}")
 

@@ -4,9 +4,12 @@ import numpy as np
 y = np.array([110, 120, 115, 70, 30, 40, 100, 112, 115, 120, 55, 105], dtype=float)
 
 # -------- Utilidades --------
-def mse(y_true, y_pred):
-    y_true, y_pred = np.asarray(y_true, float), np.asarray(y_pred, float)
-    return float(np.mean((y_true - y_pred) ** 2))
+def mse(actual, predicted):
+    sum_squared_error = 0.0
+    for i in range(len(actual)):
+        error = actual[i] - predicted[i]
+        sum_squared_error += (error ** 2)
+    return sum_squared_error / float(len(actual))
 
 def ses_in_sample(y, alpha, f0=None):
     """

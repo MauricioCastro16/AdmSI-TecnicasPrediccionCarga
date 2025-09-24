@@ -6,9 +6,12 @@ y = np.array([110, 120, 115, 70, 30, 40, 100, 112, 115, 120, 55, 105], dtype=flo
 def moving_average_predictions(y, n):
     return np.array([y[i-n:i].mean() for i in range(n, len(y))])
 
-def mse(y_true, y_pred):
-    y_true, y_pred = np.asarray(y_true), np.asarray(y_pred)
-    return float(np.mean((y_true - y_pred) ** 2))
+def mse(actual, predicted):
+    sum_squared_error = 0.0
+    for i in range(len(actual)):
+        error = actual[i] - predicted[i]
+        sum_squared_error += (error ** 2)
+    return sum_squared_error / float(len(actual))
 
 def forecast_k_steps(y, n, k=2):
     vals = list(y)
